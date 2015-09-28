@@ -1,0 +1,39 @@
+# Base octave install install
+
+## Installation instructions OS-X
+
+[Install brew](http://brew.sh/) `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+[Install cask](http://caskroom.io/) `brew install caskroom/cask/brew-cask`
+Install xquartz by running `brew cask install xquartz`
+Install virtualbox `brew cask install virtualbox`
+Install vagrant `brew cask install vagrant`
+
+If you like ease of management of your vagrant boxes
+`brew cask install vagrant-manager`
+
+There were reports of having to run X11 before being able to use the X11 forwarding that is used to forward the display of the host to the vagrant machine.
+
+## Running on OS-X
+
+Run the vagrant machine `vagrant up`
+Enter the machine `vagrant ssh`
+Run Octave via `octave` or `octave --force-gui` 
+Graph some stuff in Octave `sombrero(42)`
+
+If you can't run octave because of missing config for X11 forwarding 
+run `vagrant ssh-config` and add it to your `~/.ssh/config`.
+It should look something like
+
+```
+Host vagrant
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /Users/pstehlik/coding/vagrant/vagrant-opencv/.vagrant/machines/default/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+  ForwardX11 yes
+```
